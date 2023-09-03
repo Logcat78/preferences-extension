@@ -1,13 +1,15 @@
-package com.example.preferences_extension
+package com.example.preferences_extension.Extensions
 
 import android.content.Context
 import android.content.SharedPreferences
 
 /**
  * This file contains extension functions for saving and getting data.
- *
  * **/
 
+/**
+ * Save data functions
+ * **/
 fun String.save(
     key: String,
     context: Context,
@@ -72,4 +74,68 @@ fun Set<String>.save(
     val editor = sharedPreferences.edit()
     editor.putStringSet(key, this)
     editor.apply()
+}
+
+/**
+ * Get data functions
+ * **/
+
+fun String.getData(
+    key: String,
+    context: Context,
+    table: String): String{
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val data = sharedPreferences.getString(key, "")
+    return data?:""
+}
+
+fun Int.getData(
+    key: String,
+    context: Context,
+    table: String): Int{
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val data = sharedPreferences.getInt(key, 0)
+    return data
+}
+
+fun Float.getData(
+    key: String,
+    context: Context,
+    table: String): Float{
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val data = sharedPreferences.getFloat(key, 0.0f)
+    return data
+}
+
+fun Boolean.getData(
+    key: String,
+    context: Context,
+    table: String): Boolean{
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val data = sharedPreferences.getBoolean(key, false)
+    return data
+}
+
+fun Long.getData(
+    key: String,
+    context: Context,
+    table: String): Long{
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val data = sharedPreferences.getLong(key, 0)
+    return data
+}
+
+fun Set<String>.getData(
+    key: String,
+    context: Context,
+    table: String): Set<String>{
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val data = sharedPreferences.getStringSet(key, setOf())
+    return data?: setOf()
 }
