@@ -1,8 +1,11 @@
 package com.example.preferences_extension
 
+import android.content.Context
 import android.util.Log
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.preferences_extension.Extensions.saveDataWithConfig
 
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,5 +23,17 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         Log.d("gp", "test")
+    }
+    @Test
+    fun saveWithConfig(){
+        val context = ApplicationProvider.getApplicationContext<Context>()
+        val a: String = "писундара"
+
+        val config: List<Any> = listOf(
+            context,
+            "пипиндра",
+            Context.MODE_PRIVATE
+        )
+        a.saveDataWithConfig(config, "ключ")
     }
 }
