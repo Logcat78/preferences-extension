@@ -8,27 +8,20 @@ fun String.saveDataWithConfig(config: List<Any>, key: String){
     var context: Context? = null
     var table: String? = null
     var mode: Int? = null
+    var isAsync:Boolean? = null
     Log.d("gp", "Данные сохранены")
 
     config.forEach {
         when (it) {
-            is Context -> {
-                context = it
-                Log.d("gp", context.toString())
-            }
+            is Context -> context = it
+            is String -> table = it
+            is Int -> mode = it
+            is Boolean -> isAsync = it
 
-            is String -> {
-                table = it
-                Log.d("gp", table!!)
-            }
 
-            is Int -> {
-                mode = it
-
-            }
 
             else -> {
-                // Логика обработки других типов данных
+                // Тут надо релизовать ошибку
             }
         }
     }
@@ -36,5 +29,11 @@ fun String.saveDataWithConfig(config: List<Any>, key: String){
         context!!.getSharedPreferences(table, mode!!)
     val editor = sharedPreferences.edit()
     editor.putString(key, this)
-    editor.apply()
+
+    if(isAsync!!){
+        editor.apply()
+    }else{
+        editor.commit()
+    }
+
 }
