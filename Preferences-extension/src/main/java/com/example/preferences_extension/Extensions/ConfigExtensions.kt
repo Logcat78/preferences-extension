@@ -177,7 +177,7 @@ fun Set<String>.saveDataWithConfig(config: List<Any>, key: String){
     }
 
 }
-// Get data functions
+// Get data functions.
 fun String.getDataWithConfig(config: List<Any>, key: String): String{
     var context: Context? = null
     var table: String? = null
