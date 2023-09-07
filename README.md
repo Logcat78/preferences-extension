@@ -2,6 +2,11 @@
 Preferences extension is a library that simplifies the use and extends the capabilities of SharedPreferences.
 With this library, using SharedPreferences has become much easier, saving and getting data is implemented using extensions.
 
+# Advantages
+In this library, saving and getting is carried out using extensions, which makes it easier to SharedPreferences.
+The Preferences extension also allows you to store lists, arrays, maps, and more.
+
+
 # Basic usage
 
 ```kotlin
