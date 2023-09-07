@@ -177,3 +177,25 @@ fun Set<String>.saveDataWithConfig(config: List<Any>, key: String){
     }
 
 }
+// Get data functions
+fun String.getDataWithConfig(config: List<Any>, key: String): String{
+    var context: Context? = null
+    var table: String? = null
+    var mode: Int? = null
+    var isAsync:Boolean? = null
+
+    config.forEach {
+        when (it) {
+            is Context -> context = it
+            is String -> table = it
+            is Int -> mode = it
+            is Boolean -> isAsync = it
+            else -> throw TypeCastException("The function does not accept the given type")
+        }
+    }
+    val sharedPreferences: SharedPreferences =
+        context!!.getSharedPreferences(table, mode!!)
+    val editor = sharedPreferences.edit()
+    val data = sharedPreferences.getString(key, "")
+    return data?:""
+}
