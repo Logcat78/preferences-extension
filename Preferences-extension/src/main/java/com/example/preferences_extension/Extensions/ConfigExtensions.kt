@@ -199,3 +199,45 @@ fun String.getDataWithConfig(config: List<Any>, key: String): String{
     val data = sharedPreferences.getString(key, "")
     return data?:""
 }
+
+fun Int.getDataWithConfig(config: List<Any>, key:String): Int{
+    var context: Context? = null
+    var table: String? = null
+    var mode: Int? = null
+    var isAsync:Boolean? = null
+    config.forEach{
+        when(it) {
+            is Context -> context = it
+            is String -> table = it
+            is Int -> mode = it
+            is Boolean -> isAsync = it
+            else -> throw TypeCastException("The function does not accept the given type")
+        }
+    }
+    val sharedPreferences: SharedPreferences =
+        context!!.getSharedPreferences(table, mode!!)
+    val editor = sharedPreferences.edit()
+    val data = sharedPreferences.getInt(key, 0)
+    return data?:""
+}
+
+fun Float.getDataWithConfig(config: List<Any>, key:String): Float{
+    var context: Context? = null
+    var table: String? = null
+    var mode: Int? = null
+    var isAsync:Boolean? = null
+    config.forEach{
+        when(it) {
+            is Context -> context = it
+            is String -> table = it
+            is Int -> mode = it
+            is Boolean -> isAsync = it
+            else -> throw TypeCastException("The function does not accept the given type")
+        }
+    }
+    val sharedPreferences: SharedPreferences =
+        context!!.getSharedPreferences(table, mode!!)
+    val editor = sharedPreferences.edit()
+    val data = sharedPreferences.getFloat(key, 0.0f)
+    return data?:""
+}
