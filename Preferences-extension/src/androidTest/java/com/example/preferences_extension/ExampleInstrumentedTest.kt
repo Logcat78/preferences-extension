@@ -32,7 +32,8 @@ class ExampleInstrumentedTest {
         val config: List<Any> = listOf(
             context,
             "пипиндра",
-            Context.MODE_PRIVATE
+            Context.MODE_PRIVATE,
+            true
         )
         a.saveDataWithConfig(config, "ключ")
     }

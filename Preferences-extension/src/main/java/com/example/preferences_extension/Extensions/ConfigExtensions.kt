@@ -195,7 +195,6 @@ fun String.getDataWithConfig(config: List<Any>, key: String): String{
     }
     val sharedPreferences: SharedPreferences =
         context!!.getSharedPreferences(table, mode!!)
-    val editor = sharedPreferences.edit()
     val data = sharedPreferences.getString(key, "")
     return data?:""
 }
@@ -216,9 +215,8 @@ fun Int.getDataWithConfig(config: List<Any>, key:String): Int{
     }
     val sharedPreferences: SharedPreferences =
         context!!.getSharedPreferences(table, mode!!)
-    val editor = sharedPreferences.edit()
     val data = sharedPreferences.getInt(key, 0)
-    return data?:""
+    return data
 }
 
 fun Float.getDataWithConfig(config: List<Any>, key:String): Float{
@@ -237,7 +235,6 @@ fun Float.getDataWithConfig(config: List<Any>, key:String): Float{
     }
     val sharedPreferences: SharedPreferences =
         context!!.getSharedPreferences(table, mode!!)
-    val editor = sharedPreferences.edit()
     val data = sharedPreferences.getFloat(key, 0.0f)
-    return data?:""
+    return data
 }
