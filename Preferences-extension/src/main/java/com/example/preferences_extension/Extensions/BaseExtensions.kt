@@ -76,6 +76,18 @@ fun Set<String>.save(
     editor.apply()
 }
 
+fun List<String>.saveData(
+    key: String,
+    context: Context,
+    table: String){
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    editor.putStringSet(key, this.toSet())
+    editor.apply()
+
+}
+
 /**
  * Get data functions
  * **/
@@ -139,3 +151,6 @@ fun Set<String>.getData(
     val data = sharedPreferences.getStringSet(key, setOf())
     return data?: setOf()
 }
+
+
+

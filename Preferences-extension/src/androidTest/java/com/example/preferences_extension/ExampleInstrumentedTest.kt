@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.preferences_extension.Extensions.saveData
 import com.example.preferences_extension.Extensions.saveDataWithConfig
 
 import org.junit.Test
@@ -24,11 +25,12 @@ class ExampleInstrumentedTest {
         // Context of the app under test.
         Log.d("gp", "test")
     }
+
     @Test
     fun saveWithConfig(){
         val context = ApplicationProvider.getApplicationContext<Context>()
         val a: String = "писундара"
-
+        val abdf: List<String> = listOf()
         val config: List<Any> = listOf(
             context,
             "пипиндра",
