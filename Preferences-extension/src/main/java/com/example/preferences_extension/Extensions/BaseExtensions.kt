@@ -85,8 +85,44 @@ fun List<String>.saveData(
     val editor = sharedPreferences.edit()
     editor.putStringSet(key, this.toSet())
     editor.apply()
-
 }
+
+fun List<Int>.saveData(
+    key: String,
+    context: Context,
+    table: String){
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    val stringSet = this.map {it.toString()}.toSet()
+    editor.putStringSet(key, stringSet)
+    editor.apply()
+}
+
+fun List<Float>.saveData(
+    key: String,
+    context: Context,
+    table: String){
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    val stringSet = this.map {it.toString()}.toSet()
+    editor.putStringSet(key, stringSet)
+    editor.apply()
+}
+
+fun List<Any>.saveData(
+    key: String,
+    context: Context,
+    table: String){
+    val sharedPreferences: SharedPreferences =
+        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val editor = sharedPreferences.edit()
+    val stringSet = this.map {it.toString()}.toSet()
+    editor.putStringSet(key, stringSet)
+    editor.apply()
+}
+
 
 /**
  * Get data functions
