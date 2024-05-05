@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="deploymentTargetDropDown">
+    <value>
+      <entry key="newGet()">
+        <State />
+      </entry>
+      <entry key="newSave()">
+        <State />
+      </entry>
+      <entry key="saveWithConfig()">
+        <State />
+      </entry>
+      <entry key="testClassicGet()">
+        <State />
+      </entry>
+    </value>
+  </component>
+</project>

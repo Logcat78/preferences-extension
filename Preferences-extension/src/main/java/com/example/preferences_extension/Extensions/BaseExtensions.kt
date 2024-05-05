@@ -2,6 +2,7 @@ package com.example.preferences_extension.Extensions
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 
 /**
  * This file contains extension functions for saving and getting data.
@@ -10,15 +11,36 @@ import android.content.SharedPreferences
 /**
  * Save data functions
  * **/
+
+private fun preferencesFactory(
+    context: Context,
+    preference: String,
+    isSave: Boolean,
+): Any {
+    when (isSave) {
+        true -> {
+            val sharedPreferences: SharedPreferences =
+                context.getSharedPreferences(preference, Context.MODE_PRIVATE)
+            return sharedPreferences.edit()
+        }
+        false -> {
+            return context.getSharedPreferences(preference, Context.MODE_PRIVATE)
+        }
+    }
+
+
+}
+
+
+
 fun String.save(
     key: String,
     context: Context,
     table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
+    val editor = preferencesFactory(context, table, true) as SharedPreferences.Editor
     editor.putString(key, this)
-    editor.apply()
+    Log.d("gp", this + " сохранил")
+    editor.commit()
 }
 
 fun Int.save(
@@ -87,41 +109,6 @@ fun List<String>.saveData(
     editor.apply()
 }
 
-fun List<Int>.saveData(
-    key: String,
-    context: Context,
-    table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
-    val stringSet = this.map {it.toString()}.toSet()
-    editor.putStringSet(key, stringSet)
-    editor.apply()
-}
-
-fun List<Float>.saveData(
-    key: String,
-    context: Context,
-    table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
-    val stringSet = this.map {it.toString()}.toSet()
-    editor.putStringSet(key, stringSet)
-    editor.apply()
-}
-
-fun List<Any>.saveData(
-    key: String,
-    context: Context,
-    table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
-    val stringSet = this.map {it.toString()}.toSet()
-    editor.putStringSet(key, stringSet)
-    editor.apply()
-}
 
 
 /**
@@ -132,10 +119,9 @@ fun String.getData(
     key: String,
     context: Context,
     table: String): String{
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
+    val sharedPreferences = preferencesFactory(context, table, false) as SharedPreferences
     val data = sharedPreferences.getString(key, "")
-    return data?:""
+    return data!!
 }
 
 fun Int.getData(
