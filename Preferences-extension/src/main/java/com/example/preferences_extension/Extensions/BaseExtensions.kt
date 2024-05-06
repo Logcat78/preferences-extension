@@ -2,7 +2,7 @@ package com.example.preferences_extension.Extensions
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
+
 
 /**
  * This file contains extension functions for saving and getting data.
@@ -27,86 +27,114 @@ private fun preferencesFactory(
             return context.getSharedPreferences(preference, Context.MODE_PRIVATE)
         }
     }
-
-
 }
 
 
 
-fun String.save(
+fun String.saveData(
     key: String,
-    context: Context,
-    table: String){
-    val editor = preferencesFactory(context, table, true) as SharedPreferences.Editor
-    editor.putString(key, this)
-    Log.d("gp", this + " сохранил")
+    preference: String,
+    context: Context
+){
+    val editor = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = true
+    ) as SharedPreferences.Editor
+
+    editor
+        .putString(key, this)
     editor.commit()
 }
 
-fun Int.save(
+fun Int.saveData(
     key: String,
-    context: Context,
-    table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
+    preference: String,
+    context: Context
+){
+    val editor = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = true
+    ) as SharedPreferences.Editor
+
     editor.putInt(key, this)
-    editor.apply()
+    editor.commit()
 }
 
-fun Float.save(
+fun Float.saveData(
     key: String,
-    context: Context,
-    table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
+    preference: String,
+    context: Context
+){
+    val editor = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = true
+    ) as SharedPreferences.Editor
+
     editor.putFloat(key, this)
-    editor.apply()
+    editor.commit()
 }
 
-fun Boolean.save(
+fun Boolean.saveData(
     key: String,
-    context: Context,
-    table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
+    preference: String,
+    context: Context
+){
+    val editor = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = true
+    ) as SharedPreferences.Editor
+
     editor.putBoolean(key, this)
-    editor.apply()
+    editor.commit()
 }
 
-fun Long.save(
+fun Long.saveData(
     key: String,
-    context: Context,
-    table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
+    preference: String,
+    context: Context
+){
+    val editor = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = true
+    ) as SharedPreferences.Editor
+
     editor.putLong(key, this)
-    editor.apply()
+    editor.commit()
 }
 
-fun Set<String>.save(
+fun Set<String>.saveData(
     key: String,
-    context: Context,
-    table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
+    preference: String,
+    context: Context
+){
+    val editor = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = true
+    ) as SharedPreferences.Editor
+
     editor.putStringSet(key, this)
-    editor.apply()
+    editor.commit()
 }
 
 fun List<String>.saveData(
     key: String,
-    context: Context,
-    table: String){
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val editor = sharedPreferences.edit()
+    preference: String,
+    context: Context
+){
+    val editor = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = true
+    ) as SharedPreferences.Editor
+
     editor.putStringSet(key, this.toSet())
-    editor.apply()
+    editor.commit()
 }
 
 
@@ -115,64 +143,108 @@ fun List<String>.saveData(
  * Get data functions
  * **/
 
+
+
 fun String.getData(
     key: String,
-    context: Context,
-    table: String): String{
-    val sharedPreferences = preferencesFactory(context, table, false) as SharedPreferences
-    val data = sharedPreferences.getString(key, "")
-    return data!!
+    preference: String,
+    context: Context
+): String{
+
+    val sharedPreferences = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false
+    ) as SharedPreferences
+    return sharedPreferences
+        .getString(
+            key,
+            "This key does not exist"
+        )!!
 }
 
 fun Int.getData(
     key: String,
-    context: Context,
-    table: String): Int{
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val data = sharedPreferences.getInt(key, 0)
-    return data
+    preference: String,
+    context: Context
+): Int{
+
+    val sharedPreferences = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false
+    ) as SharedPreferences
+
+    return sharedPreferences
+        .getInt(
+            key,
+            0
+        )
 }
 
 fun Float.getData(
     key: String,
-    context: Context,
-    table: String): Float{
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val data = sharedPreferences.getFloat(key, 0.0f)
-    return data
+    preference: String,
+    context: Context
+): Float{
+
+    val sharedPreferences = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false
+    ) as SharedPreferences
+
+    return sharedPreferences
+        .getFloat(
+            key,
+            0.0f
+        )
 }
 
 fun Boolean.getData(
     key: String,
-    context: Context,
-    table: String): Boolean{
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val data = sharedPreferences.getBoolean(key, false)
-    return data
+    preference: String,
+    context: Context
+): Boolean{
+
+    val sharedPreferences = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false
+    ) as SharedPreferences
+
+    return sharedPreferences
+        .getBoolean(key, false)
 }
 
 fun Long.getData(
     key: String,
-    context: Context,
-    table: String): Long{
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val data = sharedPreferences.getLong(key, 0)
-    return data
+    preference: String,
+    context: Context
+): Long{
+
+    val sharedPreferences = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false
+    ) as SharedPreferences
+
+    return sharedPreferences
+        .getLong(key, 0)
 }
 
 fun Set<String>.getData(
     key: String,
-    context: Context,
-    table: String): Set<String>{
-    val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(table, Context.MODE_PRIVATE)
-    val data = sharedPreferences.getStringSet(key, setOf())
-    return data?: setOf()
+    preference: String,
+    context: Context
+): Set<String>{
+
+    val sharedPreferences = preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false
+    ) as SharedPreferences
+
+    return sharedPreferences
+        .getStringSet(key, setOf())?: setOf()
 }
-
-
-

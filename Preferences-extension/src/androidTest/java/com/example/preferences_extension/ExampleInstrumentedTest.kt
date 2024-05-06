@@ -7,7 +7,6 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.example.preferences_extension.Extensions.getData
-import com.example.preferences_extension.Extensions.save
 import com.example.preferences_extension.Extensions.saveData
 import com.example.preferences_extension.Extensions.saveDataWithConfig
 
@@ -43,24 +42,7 @@ class ExampleInstrumentedTest {
         a.saveDataWithConfig(config, "ключ")
     }
 
-    @Test
-    fun newSave(){
-        val text = "test"
-        text.save(
-            context = ApplicationProvider.getApplicationContext<Context>(),
-            key = "test",
-            table = "test data",
-        )
 
-    }
-
-    @Test
-    fun newGet(){
-        "тестовые данные".save("тест", ApplicationProvider.getApplicationContext(), "test data")
-
-        val data = "".getData("тест", ApplicationProvider.getApplicationContext(), "test data")
-        Log.d("gp", data)
-    }
 
     @Test
     fun testClassicGet(){
