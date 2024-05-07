@@ -12,13 +12,23 @@ The Preferences extension also allows you to store lists, arrays, maps, and more
 ```kotlin
 // Save data
 val text = "text"
-text.saveData("your-key", this, "your-preferences")
+text.saveData("your-key", context, "your-preferences")
 ```
 ```kotlin
 // Get data
-val text = "text"
-text.getData("your-key", this, "your-preferences")
+val text = "".getData("your-key", context, "your-preferences")
 ```
+
+
+# Async data saving
+The library supports async saving of data from Shared Preferences
+
+```kotlin
+// Save data
+val text = "text"
+text.asyncSaveData("your-key", this, "your-preferences")
+```
+
 # Using configurations
 In this library, you can use configurations to customize the use of preferences.
 In the configuration list, you must specify the following parameters
