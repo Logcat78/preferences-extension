@@ -1,5 +1,6 @@
 package com.example.preferences_extension.Extensions
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
 
@@ -12,15 +13,64 @@ import android.content.SharedPreferences
  * Save data functions
  * **/
 
-private fun preferencesFactory(
+@SuppressLint("ApplySharedPref")
+private fun <T>preferencesFactory(
     context: Context,
     preference: String,
     isSave: Boolean,
+    data: T,
+    key: String
 ): Any {
     when (isSave) {
         true -> {
             val sharedPreferences: SharedPreferences =
                 context.getSharedPreferences(preference, Context.MODE_PRIVATE)
+
+            when (data) {
+                is String -> {
+                    sharedPreferences
+                        .edit()
+                        .putString(key, data)
+                        .commit()
+                }
+                is Int -> {
+                    sharedPreferences
+                        .edit()
+                        .putInt(key, data)
+                        .commit()
+                }
+                is Boolean -> {
+                    sharedPreferences
+                        .edit()
+                        .putBoolean(key, data)
+                        .commit()
+                }
+                is Float -> {
+                    sharedPreferences
+                        .edit()
+                        .putFloat(key, data)
+                        .commit()
+                }
+                is Long -> {
+                    sharedPreferences
+                        .edit()
+                        .putLong(key, data)
+                        .commit()
+                }
+                is Set<*> -> {
+                    sharedPreferences
+                        .edit()
+                        .putStringSet(key, data as Set<String>)
+                        .commit()
+                }
+                is List<*> -> {
+                    sharedPreferences
+                        .edit()
+                        .putStringSet(key, data as Set<String>)
+                        .commit()
+                }
+            }
+
             return sharedPreferences.edit()
         }
         false -> {
@@ -36,15 +86,14 @@ fun String.saveData(
     preference: String,
     context: Context
 ){
-    val editor = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true
-    ) as SharedPreferences.Editor
+        isSave = true,
+        data = this,
+        key = key
+    )
 
-    editor
-        .putString(key, this)
-    editor.commit()
 }
 
 fun Int.saveData(
@@ -52,29 +101,27 @@ fun Int.saveData(
     preference: String,
     context: Context
 ){
-    val editor = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true
-    ) as SharedPreferences.Editor
-
-    editor.putInt(key, this)
-    editor.commit()
+        isSave = true,
+        data = this,
+        key = key
+    )
 }
 
 fun Float.saveData(
     key: String,
     preference: String,
     context: Context
-){
-    val editor = preferencesFactory(
+) {
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true
-    ) as SharedPreferences.Editor
-
-    editor.putFloat(key, this)
-    editor.commit()
+        isSave = true,
+        data = this,
+        key = key
+    )
 }
 
 fun Boolean.saveData(
@@ -82,14 +129,13 @@ fun Boolean.saveData(
     preference: String,
     context: Context
 ){
-    val editor = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true
-    ) as SharedPreferences.Editor
-
-    editor.putBoolean(key, this)
-    editor.commit()
+        isSave = true,
+        data = this,
+        key = key
+    )
 }
 
 fun Long.saveData(
@@ -97,14 +143,13 @@ fun Long.saveData(
     preference: String,
     context: Context
 ){
-    val editor = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true
-    ) as SharedPreferences.Editor
-
-    editor.putLong(key, this)
-    editor.commit()
+        isSave = true,
+        data = this,
+        key = key
+    )
 }
 
 fun Set<String>.saveData(
@@ -112,14 +157,13 @@ fun Set<String>.saveData(
     preference: String,
     context: Context
 ){
-    val editor = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true
-    ) as SharedPreferences.Editor
-
-    editor.putStringSet(key, this)
-    editor.commit()
+        isSave = true,
+        data = this,
+        key = key
+    )
 }
 
 fun List<String>.saveData(
@@ -127,14 +171,13 @@ fun List<String>.saveData(
     preference: String,
     context: Context
 ){
-    val editor = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true
-    ) as SharedPreferences.Editor
-
-    editor.putStringSet(key, this.toSet())
-    editor.commit()
+        isSave = true,
+        data = this,
+        key = key
+    )
 }
 
 
@@ -143,7 +186,7 @@ fun List<String>.saveData(
  * Get data functions
  * **/
 
-
+// ОНИ НЕ РАБОТАЮТ ПОТОМ ДОДЕЛАТЬ НАДО
 
 fun String.getData(
     key: String,
@@ -151,16 +194,14 @@ fun String.getData(
     context: Context
 ): String{
 
-    val sharedPreferences = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false
-    ) as SharedPreferences
-    return sharedPreferences
-        .getString(
-            key,
-            "This key does not exist"
-        )!!
+        isSave = true,
+        data = this,
+        key = key
+    )
+    return ""
 }
 
 fun Int.getData(
@@ -169,17 +210,14 @@ fun Int.getData(
     context: Context
 ): Int{
 
-    val sharedPreferences = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false
-    ) as SharedPreferences
-
-    return sharedPreferences
-        .getInt(
-            key,
-            0
-        )
+        isSave = true,
+        data = this,
+        key = key
+    )
+    return 0
 }
 
 fun Float.getData(
@@ -188,33 +226,30 @@ fun Float.getData(
     context: Context
 ): Float{
 
-    val sharedPreferences = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false
-    ) as SharedPreferences
-
-    return sharedPreferences
-        .getFloat(
-            key,
-            0.0f
-        )
+        isSave = true,
+        data = this,
+        key = key
+    )
+    return 0.0f
 }
 
 fun Boolean.getData(
     key: String,
     preference: String,
     context: Context
-): Boolean{
+): Boolean {
 
-    val sharedPreferences = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false
-    ) as SharedPreferences
-
-    return sharedPreferences
-        .getBoolean(key, false)
+        isSave = true,
+        data = this,
+        key = key
+    )
+    return false
 }
 
 fun Long.getData(
@@ -223,14 +258,14 @@ fun Long.getData(
     context: Context
 ): Long{
 
-    val sharedPreferences = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false
-    ) as SharedPreferences
-
-    return sharedPreferences
-        .getLong(key, 0)
+        isSave = true,
+        data = this,
+        key = key
+    )
+    return 1
 }
 
 fun Set<String>.getData(
@@ -239,12 +274,12 @@ fun Set<String>.getData(
     context: Context
 ): Set<String>{
 
-    val sharedPreferences = preferencesFactory(
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false
-    ) as SharedPreferences
-
-    return sharedPreferences
-        .getStringSet(key, setOf())?: setOf()
+        isSave = true,
+        data = this,
+        key = key
+    )
+    return "" as Set<String>
 }
