@@ -50,4 +50,14 @@ class ExampleInstrumentedTest {
         val sharedPreferences: SharedPreferences =
             context.getSharedPreferences("test data", Context.MODE_PRIVATE)
     }
+    @Test
+    fun testNewSave(){
+        val text: String = "test data"
+        text.saveData("data", "main",  ApplicationProvider.getApplicationContext<Context>())
+    }
+    @Test
+    fun testNewGet(){
+        val text = "".getData("data",  "main", ApplicationProvider.getApplicationContext<Context>())
+        Log.d("gp", text)
+    }
 }

@@ -8,10 +8,13 @@
       <entry key="newSave()">
         <State />
       </entry>
-      <entry key="saveWithConfig()">
+      <entry key="testClassicGet()">
         <State />
       </entry>
-      <entry key="testClassicGet()">
+      <entry key="testNewGet()">
+        <State />
+      </entry>
+      <entry key="testNewSave()">
         <State />
       </entry>
     </value>

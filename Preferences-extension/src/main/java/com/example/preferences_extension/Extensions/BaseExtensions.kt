@@ -3,6 +3,7 @@ package com.example.preferences_extension.Extensions
 import android.annotation.SuppressLint
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 
 
 /**
@@ -74,7 +75,61 @@ private fun <T>preferencesFactory(
             return sharedPreferences.edit()
         }
         false -> {
-            return context.getSharedPreferences(preference, Context.MODE_PRIVATE)
+            val sharedPreferences: SharedPreferences =
+                context.getSharedPreferences(preference, Context.MODE_PRIVATE)
+            var getData: Any = ""
+            when (data) {
+                is String -> {
+                    val stringData = sharedPreferences
+                        .getString(key, null)
+                    if (stringData == null)
+                        Log.e("preferences-extension", "This key does not exist")
+                    getData = stringData!!
+                }
+                is Int -> {
+                    val intData = sharedPreferences
+                        .getInt(key, 0)
+                    if (intData == 0)
+                        Log.e("preferences-extension", "Maybe this key does not exist")
+                    getData = intData
+                }
+                is Boolean -> {
+                    val booleanData = sharedPreferences
+                        .getBoolean(key, false)
+                    if (!booleanData)
+                        Log.e("preferences-extension", "Maybe this key does not exist")
+                    getData = booleanData
+                }
+                is Float -> {
+                    val floatData = sharedPreferences
+                        .getFloat(key, 0.0f)
+                    if (floatData == 0.0f)
+                        Log.e("preferences-extension", "Maybe this key does not exist")
+                    getData = floatData
+                }
+                is Long -> {
+                    val longData = sharedPreferences
+                        .getLong(key, 0)
+                    if (longData == 0L)
+                        Log.e("preferences-extension", "Maybe this key does not exist")
+                    getData = longData
+                }
+                is Set<*> -> {
+                    val setData = sharedPreferences
+                        .getStringSet(key, setOf())
+                    if (setData!!.isEmpty())
+                        Log.e("preferences-extension", "Maybe this key does not exist")
+                    getData = setData
+                }
+                is List<*> -> {
+                    val listData = sharedPreferences
+                        .getStringSet(key, setOf())
+                    if (listData!!.isEmpty())
+                        Log.e("preferences-extension", "Maybe this key does not exist")
+                    getData = listData
+                }
+            }
+            return getData
         }
     }
 }
@@ -194,14 +249,13 @@ fun String.getData(
     context: Context
 ): String{
 
-    preferencesFactory(
+    return preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true,
+        isSave = false,
         data = this,
         key = key
-    )
-    return ""
+    ) as String
 }
 
 fun Int.getData(
