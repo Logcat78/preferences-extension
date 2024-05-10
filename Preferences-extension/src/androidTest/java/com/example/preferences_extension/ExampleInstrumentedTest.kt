@@ -60,4 +60,18 @@ class ExampleInstrumentedTest {
         val text = "".getData("data",  "main", ApplicationProvider.getApplicationContext<Context>())
         Log.d("gp", text)
     }
+    @Test
+    fun testSaveSet(){
+        val set: Set<Int> = setOf(1,2)
+        set.saveData("set14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
+    }
+
+    @Test
+    fun testGetSet(){
+        var set: Set<Int> = setOf()
+        var popa = set.getData("set14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
+        Log.d("gp", popa.toString())
+
+        //assertEquals(setPenis, setOf("test", "test2"))
+    }
 }

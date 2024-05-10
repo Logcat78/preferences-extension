@@ -26,6 +26,7 @@ private fun <T>preferencesFactory(
         true -> {
             val sharedPreferences: SharedPreferences =
                 context.getSharedPreferences(preference, Context.MODE_PRIVATE)
+            Log.e("gp", "pop")
 
             when (data) {
                 is String -> {
@@ -59,10 +60,13 @@ private fun <T>preferencesFactory(
                         .commit()
                 }
                 is Set<*> -> {
+                    Log.e("gp", data.toString())
+                    val setDataSave = data.map { it.toString()}.toSet()
                     sharedPreferences
                         .edit()
-                        .putStringSet(key, data as Set<String>)
+                        .putStringSet(key, setDataSave)
                         .commit()
+                    Log.d("gp", sharedPreferences.getStringSet(key, setOf("popka")).toString())
                 }
                 is List<*> -> {
                     sharedPreferences
@@ -117,9 +121,33 @@ private fun <T>preferencesFactory(
                 is Set<*> -> {
                     val setData = sharedPreferences
                         .getStringSet(key, setOf())
+                    try {
+                        when(data.first()){
+                            is String -> {
+                                getData = setData as Set<String>
+                            }
+                            is Int -> {
+                                getData = setData!!.map { it.toInt() }.toSet()
+                            }
+                            is Boolean -> {
+                                getData = setData!!.map { it.toBoolean() }.toSet()
+                            }
+                            is Float -> {
+                                getData = setData!!.map { it.toFloat() }.toSet()
+                            }
+                            is Long -> {
+                                getData = setData!!.map { it.toLong() }.toSet()
+                            }
+                            is Short -> {
+                                getData = setData!!.map { it.toShort() }.toSet()
+                            }
+                        }
+                    }catch (e: Exception){
+                        Log.e("preferences-extension", "There are no elements in your collection, the library cannot determine the data type, add an element with the desired data type and a random value")
+                    }
                     if (setData!!.isEmpty())
                         Log.e("preferences-extension", "Maybe this key does not exist")
-                    getData = setData
+
                 }
                 is List<*> -> {
                     val listData = sharedPreferences
@@ -207,7 +235,7 @@ fun Long.saveData(
     )
 }
 
-fun Set<String>.saveData(
+fun Set<*>.saveData(
     key: String,
     preference: String,
     context: Context
@@ -322,18 +350,18 @@ fun Long.getData(
     return 1
 }
 
-fun Set<String>.getData(
+fun Set<*>.getData(
     key: String,
     preference: String,
     context: Context
 ): Set<String>{
 
-    preferencesFactory(
+    return preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true,
+        isSave = false,
         data = this,
         key = key
-    )
-    return "" as Set<String>
+    ) as Set<String>
+
 }

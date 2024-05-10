@@ -5,16 +5,16 @@
       <entry key="newGet()">
         <State />
       </entry>
-      <entry key="newSave()">
-        <State />
-      </entry>
-      <entry key="testClassicGet()">
+      <entry key="testGetSet()">
         <State />
       </entry>
       <entry key="testNewGet()">
         <State />
       </entry>
       <entry key="testNewSave()">
+        <State />
+      </entry>
+      <entry key="testSaveSet()">
         <State />
       </entry>
     </value>
