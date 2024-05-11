@@ -69,9 +69,10 @@ private fun <T>preferencesFactory(
                     Log.d("gp", sharedPreferences.getStringSet(key, setOf("popka")).toString())
                 }
                 is List<*> -> {
+                    val listDataSave = data.map { it.toString() }.toSet()
                     sharedPreferences
                         .edit()
-                        .putStringSet(key, data as Set<String>)
+                        .putStringSet(key, listDataSave)
                         .commit()
                 }
             }
@@ -127,7 +128,7 @@ private fun <T>preferencesFactory(
                                 getData = setData as Set<String>
                             }
                             is Int -> {
-                                getData = setData!!.map { it.toInt() }.toSet()
+                                getData = setData!!.map { it.toInt() }.toSet<Int>()
                             }
                             is Boolean -> {
                                 getData = setData!!.map { it.toBoolean() }.toSet()
@@ -141,6 +142,10 @@ private fun <T>preferencesFactory(
                             is Short -> {
                                 getData = setData!!.map { it.toShort() }.toSet()
                             }
+
+                            else -> {
+                                Log.e("preferences-extension", "This data type is not supported")
+                            }
                         }
                     }catch (e: Exception){
                         Log.e("preferences-extension", "There are no elements in your collection, the library cannot determine the data type, add an element with the desired data type and a random value")
@@ -152,9 +157,38 @@ private fun <T>preferencesFactory(
                 is List<*> -> {
                     val listData = sharedPreferences
                         .getStringSet(key, setOf())
+                    try{
+                        when(data.first()){
+                            is String -> {
+                                getData = listData as Set<String>
+                            }
+                            is Int -> {
+                                getData = listData!!.map { it.toInt() }.toList()
+                            }
+                            is Boolean -> {
+                                getData = listData!!.map { it.toBoolean() }.toList()
+                            }
+                            is Float -> {
+                                getData = listData!!.map { it.toFloat() }.toList()
+                            }
+                            is Long -> {
+                                getData = listData!!.map { it.toLong() }.toList()
+                            }
+                            is Short -> {
+                                getData = listData!!.map { it.toShort() }.toList()
+                            }
+
+                            else -> {
+                                Log.e("preferences-extension", "This data type is not supported")
+                            }
+                        }
+                    }catch (e: Exception){
+                        Log.e("preferences-extension", "There are no elements in your collection, the library cannot determine the data type, add an element with the desired data type and a random value")
+                    }
+
                     if (listData!!.isEmpty())
                         Log.e("preferences-extension", "Maybe this key does not exist")
-                    getData = listData
+
                 }
             }
             return getData
@@ -249,7 +283,7 @@ fun Set<*>.saveData(
     )
 }
 
-fun List<String>.saveData(
+fun List<*>.saveData(
     key: String,
     preference: String,
     context: Context
@@ -350,11 +384,11 @@ fun Long.getData(
     return 1
 }
 
-fun Set<*>.getData(
+fun <T>Set<*>.getData(
     key: String,
     preference: String,
     context: Context
-): Set<String>{
+): Set<*>{
 
     return preferencesFactory(
         context = context,
@@ -362,6 +396,22 @@ fun Set<*>.getData(
         isSave = false,
         data = this,
         key = key
-    ) as Set<String>
+    ) as Set<T>
+
+}
+
+fun <T>List<*>.getData(
+    key: String,
+    preference: String,
+    context: Context
+): List<*>{
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key
+    ) as List<T>
 
 }

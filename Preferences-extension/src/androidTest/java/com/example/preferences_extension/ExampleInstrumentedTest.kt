@@ -68,8 +68,23 @@ class ExampleInstrumentedTest {
 
     @Test
     fun testGetSet(){
-        var set: Set<Int> = setOf()
-        var popa = set.getData("set14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
+        var set: Set<Int> = setOf(1)
+        var popa = set.getData<Int>("set14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
+        Log.d("gp", popa.toString())
+
+        //assertEquals(setPenis, setOf("test", "test2"))
+    }
+
+    @Test
+    fun testSaveList(){
+        val list: List<Int> = listOf(1,2,3)
+        list.saveData("list14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
+    }
+
+    @Test
+    fun testGetList(){
+        var list: List<Int> = listOf(1)
+        var popa = list.getData<Int>("list14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
         Log.d("gp", popa.toString())
 
         //assertEquals(setPenis, setOf("test", "test2"))
