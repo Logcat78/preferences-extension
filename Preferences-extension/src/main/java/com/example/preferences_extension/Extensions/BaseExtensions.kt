@@ -75,6 +75,13 @@ private fun <T>preferencesFactory(
                         .putStringSet(key, listDataSave)
                         .commit()
                 }
+
+                is Short -> {
+                    sharedPreferences
+                        .edit()
+                        .putInt(key, data.toInt())
+                        .commit()
+                }
             }
 
             return sharedPreferences.edit()
@@ -119,6 +126,16 @@ private fun <T>preferencesFactory(
                         Log.e("preferences-extension", "Maybe this key does not exist")
                     getData = longData
                 }
+
+                is Short -> {
+                    val shortData = sharedPreferences.getInt(key, 0)
+
+                    if (shortData == 0) {
+                        Log.e("preferences-extension", "Maybe this key does not exist")
+                    }
+                    getData = shortData.toShort()
+                }
+
                 is Set<*> -> {
                     val setData = sharedPreferences
                         .getStringSet(key, setOf())
@@ -297,6 +314,20 @@ fun List<*>.saveData(
     )
 }
 
+fun Short.saveData(
+    key: String,
+    preference: String,
+    context: Context
+){
+    preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = true,
+        data = this,
+        key = key
+    )
+}
+
 
 
 /**
@@ -326,14 +357,13 @@ fun Int.getData(
     context: Context
 ): Int{
 
-    preferencesFactory(
+    return preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true,
+        isSave = false,
         data = this,
         key = key
-    )
-    return 0
+    ) as Int
 }
 
 fun Float.getData(
@@ -342,14 +372,13 @@ fun Float.getData(
     context: Context
 ): Float{
 
-    preferencesFactory(
+    return preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true,
+        isSave = false,
         data = this,
         key = key
-    )
-    return 0.0f
+    ) as Float
 }
 
 fun Boolean.getData(
@@ -358,14 +387,13 @@ fun Boolean.getData(
     context: Context
 ): Boolean {
 
-    preferencesFactory(
+    return preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true,
+        isSave = false,
         data = this,
         key = key
-    )
-    return false
+    ) as Boolean
 }
 
 fun Long.getData(
@@ -374,14 +402,28 @@ fun Long.getData(
     context: Context
 ): Long{
 
-    preferencesFactory(
+    return preferencesFactory(
         context = context,
         preference = preference,
-        isSave = true,
+        isSave = false,
         data = this,
         key = key
-    )
-    return 1
+    ) as Long
+}
+
+fun Short.getData(
+    key: String,
+    preference: String,
+    context: Context
+): Short{
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key
+    ) as Short
 }
 
 fun <T>Set<*>.getData(
@@ -415,3 +457,4 @@ fun <T>List<*>.getData(
     ) as List<T>
 
 }
+

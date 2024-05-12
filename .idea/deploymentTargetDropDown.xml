@@ -2,19 +2,19 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="newGet()">
+      <entry key="testGetList()">
         <State />
       </entry>
       <entry key="testGetSet()">
         <State />
       </entry>
-      <entry key="testNewGet()">
+      <entry key="testGetShort()">
         <State />
       </entry>
-      <entry key="testNewSave()">
+      <entry key="testSaveList()">
         <State />
       </entry>
-      <entry key="testSaveSet()">
+      <entry key="testSaveShort()">
         <State />
       </entry>
     </value>

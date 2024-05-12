@@ -89,4 +89,37 @@ class ExampleInstrumentedTest {
 
         //assertEquals(setPenis, setOf("test", "test2"))
     }
+
+    @Test
+    fun testSaveShort(){
+        val short: Short = 1
+        short.saveData("short14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
+    }
+
+    @Test
+    fun testGetShort(){
+        var short: Short = 1
+        var popa = short.getData("short14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
+        Log.d("gp", popa.toString())
+
+        //assertEquals(setPenis, setOf("test", "test2"))
+    }
+
+    @Test
+    fun testIntSave(){
+        var int: Int = 1488
+        var popa = int.saveData("int14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
+        //Log.d("gp", popa.toString())
+
+        //assertEquals(setPenis, setOf("test", "test2"))
+    }
+
+    @Test
+    fun testIntGet(){
+        var int: Int = 1
+        var popa = int.getData("int14", "mainpopka", ApplicationProvider.getApplicationContext<Context>())
+        Log.d("gp", popa.toString())
+
+        //assertEquals(setPenis, setOf("test", "test2"))
+    }
 }
