@@ -5,13 +5,13 @@
       <entry key="testGetList()">
         <State />
       </entry>
-      <entry key="testGetSet()">
-        <State />
-      </entry>
       <entry key="testGetShort()">
         <State />
       </entry>
-      <entry key="testSaveList()">
+      <entry key="testIntGet()">
+        <State />
+      </entry>
+      <entry key="testIntSave()">
         <State />
       </entry>
       <entry key="testSaveShort()">

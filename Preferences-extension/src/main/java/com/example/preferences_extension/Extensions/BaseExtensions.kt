@@ -20,7 +20,8 @@ private fun <T>preferencesFactory(
     preference: String,
     isSave: Boolean,
     data: T,
-    key: String
+    key: String,
+    isAsync: Boolean
 ): Any {
     when (isSave) {
         true -> {
@@ -30,57 +31,114 @@ private fun <T>preferencesFactory(
 
             when (data) {
                 is String -> {
-                    sharedPreferences
-                        .edit()
-                        .putString(key, data)
-                        .commit()
+                    if (!isAsync) {
+                        sharedPreferences
+                            .edit()
+                            .putString(key, data)
+                            .commit()
+                    }else{
+                        sharedPreferences
+                            .edit()
+                            .putString(key, data)
+                            .apply()
+                    }
                 }
                 is Int -> {
-                    sharedPreferences
-                        .edit()
-                        .putInt(key, data)
-                        .commit()
+                    if (!isAsync) {
+                        sharedPreferences
+                            .edit()
+                            .putInt(key, data)
+                            .commit()
+                    }else{
+                        sharedPreferences
+                            .edit()
+                            .putInt(key, data)
+                            .apply()
+                    }
                 }
                 is Boolean -> {
-                    sharedPreferences
-                        .edit()
-                        .putBoolean(key, data)
-                        .commit()
+                    if (!isAsync) {
+                        sharedPreferences
+                            .edit()
+                            .putBoolean(key, data)
+                            .commit()
+                    }else{
+                        sharedPreferences
+                            .edit()
+                            .putBoolean(key, data)
+                            .apply()
+                    }
                 }
                 is Float -> {
-                    sharedPreferences
-                        .edit()
-                        .putFloat(key, data)
-                        .commit()
+                    if (!isAsync) {
+                        sharedPreferences
+                            .edit()
+                            .putFloat(key, data)
+                            .commit()
+                    }else{
+                        sharedPreferences
+                            .edit()
+                            .putFloat(key, data)
+                            .apply()
+                    }
                 }
                 is Long -> {
-                    sharedPreferences
-                        .edit()
-                        .putLong(key, data)
-                        .commit()
+                    if (!isAsync) {
+                        sharedPreferences
+                            .edit()
+                            .putLong(key, data)
+                            .commit()
+                    }else{
+                        sharedPreferences
+                            .edit()
+                            .putLong(key, data)
+                            .apply()
+                    }
                 }
                 is Set<*> -> {
-                    Log.e("gp", data.toString())
-                    val setDataSave = data.map { it.toString()}.toSet()
-                    sharedPreferences
-                        .edit()
-                        .putStringSet(key, setDataSave)
-                        .commit()
-                    Log.d("gp", sharedPreferences.getStringSet(key, setOf("popka")).toString())
+                    if (!isAsync) {
+                        val setDataSave = data.map { it.toString()}.toSet()
+                        sharedPreferences
+                            .edit()
+                            .putStringSet(key, setDataSave)
+                            .commit()
+                    }else{
+                        val setDataSave = data.map { it.toString()}.toSet()
+                        sharedPreferences
+                            .edit()
+                            .putStringSet(key, setDataSave)
+                            .apply()
+                    }
+
                 }
                 is List<*> -> {
-                    val listDataSave = data.map { it.toString() }.toSet()
-                    sharedPreferences
-                        .edit()
-                        .putStringSet(key, listDataSave)
-                        .commit()
+                    if(!isAsync) {
+                        val listDataSave = data.map { it.toString() }.toSet()
+                        sharedPreferences
+                            .edit()
+                            .putStringSet(key, listDataSave)
+                            .commit()
+                    }else{
+                        val listDataSave = data.map { it.toString() }.toSet()
+                        sharedPreferences
+                            .edit()
+                            .putStringSet(key, listDataSave)
+                            .apply()
+                    }
                 }
 
                 is Short -> {
-                    sharedPreferences
-                        .edit()
-                        .putInt(key, data.toInt())
-                        .commit()
+                    if (!isAsync) {
+                        sharedPreferences
+                            .edit()
+                            .putInt(key, data.toInt())
+                            .commit()
+                    }else{
+                        sharedPreferences
+                            .edit()
+                            .putInt(key, data.toInt())
+                            .apply()
+                    }
                 }
             }
 
@@ -225,7 +283,8 @@ fun String.saveData(
         preference = preference,
         isSave = true,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     )
 
 }
@@ -240,7 +299,8 @@ fun Int.saveData(
         preference = preference,
         isSave = true,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     )
 }
 
@@ -254,7 +314,8 @@ fun Float.saveData(
         preference = preference,
         isSave = true,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     )
 }
 
@@ -268,7 +329,8 @@ fun Boolean.saveData(
         preference = preference,
         isSave = true,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     )
 }
 
@@ -282,7 +344,8 @@ fun Long.saveData(
         preference = preference,
         isSave = true,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     )
 }
 
@@ -296,7 +359,8 @@ fun Set<*>.saveData(
         preference = preference,
         isSave = true,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     )
 }
 
@@ -310,7 +374,8 @@ fun List<*>.saveData(
         preference = preference,
         isSave = true,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     )
 }
 
@@ -324,7 +389,8 @@ fun Short.saveData(
         preference = preference,
         isSave = true,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     )
 }
 
@@ -347,7 +413,8 @@ fun String.getData(
         preference = preference,
         isSave = false,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     ) as String
 }
 
@@ -362,7 +429,8 @@ fun Int.getData(
         preference = preference,
         isSave = false,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     ) as Int
 }
 
@@ -377,7 +445,8 @@ fun Float.getData(
         preference = preference,
         isSave = false,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     ) as Float
 }
 
@@ -392,7 +461,8 @@ fun Boolean.getData(
         preference = preference,
         isSave = false,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     ) as Boolean
 }
 
@@ -407,7 +477,8 @@ fun Long.getData(
         preference = preference,
         isSave = false,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     ) as Long
 }
 
@@ -422,7 +493,8 @@ fun Short.getData(
         preference = preference,
         isSave = false,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     ) as Short
 }
 
@@ -437,7 +509,8 @@ fun <T>Set<*>.getData(
         preference = preference,
         isSave = false,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     ) as Set<T>
 
 }
@@ -453,7 +526,8 @@ fun <T>List<*>.getData(
         preference = preference,
         isSave = false,
         data = this,
-        key = key
+        key = key,
+        isAsync = false
     ) as List<T>
 
 }
