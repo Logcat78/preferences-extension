@@ -2,10 +2,10 @@
 <project version="4">
   <component name="deploymentTargetDropDown">
     <value>
-      <entry key="testGetList()">
+      <entry key="ExampleInstrumentedTest">
         <State />
       </entry>
-      <entry key="testGetShort()">
+      <entry key="saveWithConfig()">
         <State />
       </entry>
       <entry key="testIntGet()">
@@ -14,7 +14,7 @@
       <entry key="testIntSave()">
         <State />
       </entry>
-      <entry key="testSaveShort()">
+      <entry key="testSetWithConfig()">
         <State />
       </entry>
     </value>

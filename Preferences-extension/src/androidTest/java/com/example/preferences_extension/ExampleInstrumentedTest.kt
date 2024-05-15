@@ -122,4 +122,21 @@ class ExampleInstrumentedTest {
 
         //assertEquals(setPenis, setOf("test", "test2"))
     }
+
+    @Test
+    fun testSetWithConfig(){
+        var confog: List<Any> = listOf(
+            ApplicationProvider.getApplicationContext<Context>(),
+            "mainpopka",
+            Context.MODE_PRIVATE,
+            false
+        )
+
+        var popka: String = "anal"
+        popka.saveDataWithConfig(confog, "set1488")
+
+        //assertEquals(setPenis, setOf("test", "test2"))
+    }
+
+
 }

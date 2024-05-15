@@ -27,7 +27,6 @@ private fun <T>preferencesFactory(
         true -> {
             val sharedPreferences: SharedPreferences =
                 context.getSharedPreferences(preference, Context.MODE_PRIVATE)
-            Log.e("gp", "pop")
 
             when (data) {
                 is String -> {
@@ -531,4 +530,135 @@ fun <T>List<*>.getData(
     ) as List<T>
 
 }
+
+fun String.asyncGetData(
+    key: String,
+    preference: String,
+    context: Context
+): String{
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key,
+        isAsync = true
+    ) as String
+}
+
+fun Int.asyncGetData(
+    key: String,
+    preference: String,
+    context: Context
+): Int{
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key,
+        isAsync = true
+    ) as Int
+}
+
+fun Float.asyncGetData(
+    key: String,
+    preference: String,
+    context: Context
+): Float{
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key,
+        isAsync = true
+    ) as Float
+}
+
+fun Boolean.asyncGetData(
+    key: String,
+    preference: String,
+    context: Context
+): Boolean {
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key,
+        isAsync = true
+    ) as Boolean
+}
+
+fun Long.asyncGetData(
+    key: String,
+    preference: String,
+    context: Context
+): Long{
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key,
+        isAsync = true
+    ) as Long
+}
+
+fun Short.asyncGetData(
+    key: String,
+    preference: String,
+    context: Context
+): Short{
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key,
+        isAsync = true
+    ) as Short
+}
+
+fun <T>Set<*>.asyncGetData(
+    key: String,
+    preference: String,
+    context: Context
+): Set<*>{
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key,
+        isAsync = true
+    ) as Set<T>
+
+}
+
+fun <T>List<*>.asyncGetData(
+    key: String,
+    preference: String,
+    context: Context
+): List<*>{
+
+    return preferencesFactory(
+        context = context,
+        preference = preference,
+        isSave = false,
+        data = this,
+        key = key,
+        isAsync = true
+    ) as List<T>
+
+}
+
 
