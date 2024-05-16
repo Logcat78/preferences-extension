@@ -234,22 +234,22 @@ private fun <T>preferencesFactory(
                     try{
                         when(data.first()){
                             is String -> {
-                                getData = listData as Set<String>
+                                getData = listData!!.map { it.toString() }.toList().reversed()
                             }
                             is Int -> {
-                                getData = listData!!.map { it.toInt() }.toList()
+                                getData = listData!!.map { it.toInt() }.toList().reversed()
                             }
                             is Boolean -> {
-                                getData = listData!!.map { it.toBoolean() }.toList()
+                                getData = listData!!.map { it.toBoolean() }.toList().reversed()
                             }
                             is Float -> {
-                                getData = listData!!.map { it.toFloat() }.toList()
+                                getData = listData!!.map { it.toFloat() }.toList().reversed()
                             }
                             is Long -> {
-                                getData = listData!!.map { it.toLong() }.toList()
+                                getData = listData!!.map { it.toLong() }.toList().reversed()
                             }
                             is Short -> {
-                                getData = listData!!.map { it.toShort() }.toList()
+                                getData = listData!!.map { it.toShort() }.toList().reversed()
                             }
 
                             else -> {
@@ -265,6 +265,7 @@ private fun <T>preferencesFactory(
 
                 }
             }
+            Log.d("gp", getData.toString())
             return getData
         }
     }
@@ -531,134 +532,128 @@ fun <T>List<*>.getData(
 
 }
 
-fun String.asyncGetData(
+
+// Async save functions
+
+
+fun String.asyncSaveData(
     key: String,
     preference: String,
     context: Context
-): String{
-
-    return preferencesFactory(
+){
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false,
+        isSave = true,
         data = this,
         key = key,
         isAsync = true
-    ) as String
+    )
 }
 
-fun Int.asyncGetData(
+fun Int.asyncSaveData(
     key: String,
     preference: String,
     context: Context
-): Int{
-
-    return preferencesFactory(
+){
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false,
+        isSave = true,
         data = this,
         key = key,
         isAsync = true
-    ) as Int
+    )
 }
 
-fun Float.asyncGetData(
+fun Float.asyncSaveData(
     key: String,
     preference: String,
     context: Context
-): Float{
-
-    return preferencesFactory(
+){
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false,
+        isSave = true,
         data = this,
         key = key,
         isAsync = true
-    ) as Float
+    )
 }
 
-fun Boolean.asyncGetData(
+fun Boolean.asyncSaveData(
     key: String,
     preference: String,
     context: Context
-): Boolean {
-
-    return preferencesFactory(
+){
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false,
+        isSave = true,
         data = this,
         key = key,
         isAsync = true
-    ) as Boolean
+    )
 }
 
-fun Long.asyncGetData(
+fun Long.asyncSaveData(
     key: String,
     preference: String,
     context: Context
-): Long{
-
-    return preferencesFactory(
+){
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false,
+        isSave = true,
         data = this,
         key = key,
         isAsync = true
-    ) as Long
+    )
 }
 
-fun Short.asyncGetData(
+fun Short.asyncSaveData(
     key: String,
     preference: String,
     context: Context
-): Short{
-
-    return preferencesFactory(
+){
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false,
+        isSave = true,
         data = this,
         key = key,
         isAsync = true
-    ) as Short
+    )
 }
 
-fun <T>Set<*>.asyncGetData(
+fun Set<*>.saveAsyncData(
     key: String,
     preference: String,
     context: Context
-): Set<*>{
-
-    return preferencesFactory(
+){
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false,
+        isSave = true,
         data = this,
         key = key,
         isAsync = true
-    ) as Set<T>
-
+    )
 }
 
-fun <T>List<*>.asyncGetData(
+fun List<*>.saveAsyncData(
     key: String,
     preference: String,
     context: Context
-): List<*>{
-
-    return preferencesFactory(
+){
+    preferencesFactory(
         context = context,
         preference = preference,
-        isSave = false,
+        isSave = true,
         data = this,
         key = key,
         isAsync = true
-    ) as List<T>
-
+    )
 }
 
 
