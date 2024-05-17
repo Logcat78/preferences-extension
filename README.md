@@ -4,11 +4,42 @@ With this library, using SharedPreferences has become much easier, saving and ge
 
 # Advantages
 In this library, saving and getting is carried out using extensions, which makes it easier to SharedPreferences.
-The Preferences extension also allows you to store lists, arrays, maps, and more.
+The Preferences extension also allows you to store lists, arrays, and more.
+
+
+# Install
+To install the library you need to add the JitPack repository to your build file:
+
+```Groovy DSL
+dependencyResolutionManagement {
+		repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+		repositories {
+			mavenCentral()
+			maven { url 'https://jitpack.io' }
+		}
+	}
+
+```
+And also add the dependency to build.gradle:
+
+```Groovy DSL
+implementation 'com.github.Logcat78:preferences-extension:1.0.4'
+```
+
+# Supported data types
+
+- Int
+- Short
+- Long
+- Boolean
+- String
+- Set
+- List
+- ArrayList
+- MutableList
 
 
 # Basic usage
-
 ```kotlin
 // Save data
 val text = "text"
@@ -62,4 +93,6 @@ text.saveDataWithConfig(config, "your-key")
 val text = "text"
 text.getDataWithConfig(config, "your-key")
 ```
+
+# Logging
 
